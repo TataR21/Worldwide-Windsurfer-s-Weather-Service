@@ -3,38 +3,35 @@ package com.example.Worldwide.Windsurfer.s.Weather.Service;
 public class Weather {
 
     private String location;
-    private String temp;
-    private String wind_speed;
+    private float temp;
+    private float wind_speed;
     private String date;
 
-    public Weather(String location, String temp, String wind_speed, String date) {
+    public Weather(String location, float temp, float wind_speed, String date) {
         this.location = location;
         this.temp = temp;
         this.wind_speed = wind_speed;
         this.date = date;
     }
 
-    //public Weather(String location) {
-        //this.location = location;
-  //  }
 
     public void setLocation(String location) {
         this.location = location;
     }
 
-    public String getTemp() {
+    public float getTemp() {
         return temp;
     }
 
-    public void setTemp(String temp) {
+    public void setTemp(float temp) {
         this.temp = temp;
     }
 
-    public String getWind_speed() {
+    public float getWind_speed() {
         return wind_speed;
     }
 
-    public void setWind_speed(String wind_speed) {
+    public void setWind_speed(float wind_speed) {
         this.wind_speed = wind_speed;
     }
 

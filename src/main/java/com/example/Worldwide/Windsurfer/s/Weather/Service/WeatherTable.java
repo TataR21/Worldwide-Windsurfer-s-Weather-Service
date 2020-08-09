@@ -4,20 +4,20 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.HashMap;
 
-public class WeatherTable {
+public class WeatherTable implements ServiceWeatherTable {
     private String location;
-    private String temp;
-    private String wind_speed;
+    private float temp;
+    private float wind_speed;
     private String lat;
     private String lon;
-    static String[] loc = {"Jastarnia", "Bridgetown", "Fortaleza", "Pissouri", "Le Morne"};
-    static HashMap<String, HashMap<String, WeatherTable>> locations = new HashMap<>();
+    String[] loc = {"Jastarnia", "Bridgetown", "Fortaleza", "Pissouri", "Le Morne"};
+    HashMap<String, HashMap<String, WeatherTable>> locations = new HashMap<>();
 
-    public static HashMap getDataFromApi() throws IOException {
+    @Override
+    public HashMap getDataFromApi() throws IOException {
         for(String i: loc) {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
@@ -32,8 +32,8 @@ public class WeatherTable {
             HashMap<String, WeatherTable> map = new HashMap<>();
             for (int j = 0; j < json.getJSONArray("data").length(); j++) {
                 String date = json.getJSONArray("data").getJSONObject(j).get("valid_date").toString();
-                String wind = json.getJSONArray("data").getJSONObject(j).get("wind_spd").toString();
-                String temp = json.getJSONArray("data").getJSONObject(j).get("temp").toString();
+                float wind = Float.parseFloat(json.getJSONArray("data").getJSONObject(j).get("wind_spd").toString());
+                float temp = Float.parseFloat(json.getJSONArray("data").getJSONObject(j).get("temp").toString());
 
                 WeatherTable weatherTable = new WeatherTable(i,temp,wind,lat,lon);
 
@@ -45,12 +45,20 @@ public class WeatherTable {
         return locations;
     }
 
-    public WeatherTable(String location, String temp, String wind_speed, String lat, String lon) {
+    public WeatherTable(String location, float temp, float wind_speed, String lat, String lon) {
         this.location = location;
         this.temp = temp;
         this.wind_speed = wind_speed;
         this.lat = lat;
         this.lon = lon;
+    }
+
+    public HashMap<String, HashMap<String, WeatherTable>> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(HashMap<String, HashMap<String, WeatherTable>> locations) {
+        this.locations = locations;
     }
 
     public WeatherTable() {
@@ -64,19 +72,19 @@ public class WeatherTable {
         this.location = location;
     }
 
-    public String getTemp() {
+    public float getTemp() {
         return temp;
     }
 
-    public void setTemp(String temp) {
+    public void setTemp(float temp) {
         this.temp = temp;
     }
 
-    public String getWind_speed() {
+    public float getWind_speed() {
         return wind_speed;
     }
 
-    public void setWind_speed(String wind_speed) {
+    public void setWind_speed(float wind_speed) {
         this.wind_speed = wind_speed;
     }
 
