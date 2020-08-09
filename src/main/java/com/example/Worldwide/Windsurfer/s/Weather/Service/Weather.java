@@ -14,7 +14,6 @@ public class Weather {
         this.date = date;
     }
 
-
     public void setLocation(String location) {
         this.location = location;
     }

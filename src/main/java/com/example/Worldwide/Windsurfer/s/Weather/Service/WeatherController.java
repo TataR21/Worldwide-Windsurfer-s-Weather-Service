@@ -8,16 +8,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @RestController
 public class WeatherController {
 
     private SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
     private Date date_st = new Date(System.currentTimeMillis());
     private String date_str = formatter.format(date_st);
-    HashMap<String, HashMap<String, WeatherTable>> location = new HashMap<>();
-    Weather weather;
-    RunThread runThread;
 
     @GetMapping("/weather")
     public Weather WeatherForm(
@@ -25,12 +21,14 @@ public class WeatherController {
         if (date == null) {
             date = date_str;
         }
+        Weather weather = null;
+        HashMap<String, HashMap<String, WeatherTable>> location;
         String datePattern = "\\d{4}-\\d{2}-\\d{2}";
         boolean isDate1 = date.matches(datePattern);
         if (!isDate1) {
             throw new ErrorController.DateFormatException();
         }
-        location = runThread.getLocations();
+        location = RunThread.location;
         float max = 0;
         float result;
         for(Map.Entry<String, HashMap<String, WeatherTable>> entry: location.entrySet()) {
@@ -44,6 +42,7 @@ public class WeatherController {
             }
             boolean isWindAndTempInRange = windSpeed >=5 || windSpeed <=18 || temp >=5 || temp <= 35;
             result = windSpeed*3+temp;
+
             if (result > max && isWindAndTempInRange)
             {
                 max = result;

@@ -5,5 +5,4 @@ import java.util.HashMap;
 
 public interface ServiceWeatherTable {
     HashMap getDataFromApi() throws IOException;
-    HashMap<String, HashMap<String, WeatherTable>> getLocations();
 }

@@ -2,7 +2,6 @@ package com.example.Worldwide.Windsurfer.s.Weather.Service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -18,9 +17,8 @@ public class Application {
 		RunThread runThread = new RunThread(serviceWeatherTable);
 
 		final ScheduledFuture<?> beepHandler =
-				scheduler.scheduleAtFixedRate(runThread, 0, 30, TimeUnit.MINUTES);
+				scheduler.scheduleAtFixedRate(runThread, 0, 1, TimeUnit.HOURS);
 
 		SpringApplication.run(Application.class, args);
 	}
-
 }

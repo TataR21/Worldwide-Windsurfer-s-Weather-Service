@@ -14,14 +14,15 @@ public class WeatherTable implements ServiceWeatherTable {
     private String lat;
     private String lon;
     String[] loc = {"Jastarnia", "Bridgetown", "Fortaleza", "Pissouri", "Le Morne"};
-    HashMap<String, HashMap<String, WeatherTable>> locations = new HashMap<>();
+
 
     @Override
     public HashMap getDataFromApi() throws IOException {
+        HashMap<String, HashMap<String, WeatherTable>> locations = new HashMap<>();
         for(String i: loc) {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url("https://api.weatherbit.io/v2.0/forecast/daily?city="+i+"&key=8182fc129a9045afbf64ed33dee7f3f9")
+                    .url("https://api.weatherbit.io/v2.0/forecast/daily?city="+i+"&key=bba96cd3cf21434986430d7bb541bbfa")
                     .get()
                     .build();
 
@@ -53,54 +54,15 @@ public class WeatherTable implements ServiceWeatherTable {
         this.lon = lon;
     }
 
-    public HashMap<String, HashMap<String, WeatherTable>> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(HashMap<String, HashMap<String, WeatherTable>> locations) {
-        this.locations = locations;
-    }
-
     public WeatherTable() {
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public float getTemp() {
         return temp;
     }
 
-    public void setTemp(float temp) {
-        this.temp = temp;
-    }
-
     public float getWind_speed() {
         return wind_speed;
     }
 
-    public void setWind_speed(float wind_speed) {
-        this.wind_speed = wind_speed;
-    }
-
-    public String getLat() {
-        return lat;
-    }
-
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
-
-    public String getLon() {
-        return lon;
-    }
-
-    public void setLon(String lon) {
-        this.lon = lon;
-    }
 }
